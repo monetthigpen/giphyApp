@@ -58,7 +58,7 @@ var topics = ["dogs","pandas","elephants","mice" ];
           // Provided the initial button text
           c.text( topics[i]);
           // Added the button to the buttons-view div
-          $("#buttons-view").append([i]);
+          $("#buttons-view").append(c);
           console.log(topics[i]);
           
         }
@@ -79,7 +79,7 @@ var topics = ["dogs","pandas","elephants","mice" ];
       });
 
       // Adding click event listeners to all elements with a class of "movie"
-      $(document).on("click", ".topic", displayGif);
+      $(document).on("click", ".topics", displayGif);
       displayGif();
       renderButtons();
 
