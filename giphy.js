@@ -19,7 +19,7 @@ function renderButtons(){
     $("#gif-view").append(prebuttons);
     
   }
-  $("#find-gif").on("click", function(event) {
+  $("#add-gif").on("click", function(event) {
       event.preventDefault();
       var userInput = $("#gif-input").val().trim();
       
