@@ -65,7 +65,7 @@ var topics = ["dogs","pandas","elephants","mice" ];
       }
 
       // This function handles events where the add movie button is clicked
-      $("#submit").on("click", function(event) {
+      $("#add-gif").on("click", function(event) {
         event.preventDefault();
         // This line of code will grab the input from the textbox
         var topic = $("#gif-input").val().trim();
