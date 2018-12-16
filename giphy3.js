@@ -4,10 +4,10 @@ var topics = ["dogs","pandas","elephants","mice" ];
     function displayGif() {
 
         var topic = $(this).attr("data-name");
-        var queryURL = "https:api.giphy.com/v1/gifs/search?api_key=1n42QHILWND8j2gCdeZzeuDYfgbUCAJQ&q=" + topics;
-        console.log(queryURL);
-        console.log(topics);
-        console.log(topic);
+        var queryURL = "https:api.giphy.com/v1/gifs/search?q=" + topics + "&api_key=1n42QHILWND8j2gCdeZzeuDYfgbUCAJQ&limit=10";
+        // console.log(queryURL);
+        // console.log(topics);
+        // console.log(topic);
 
         // Creates AJAX call for the specific movie button being clicked
         $.ajax({
@@ -17,27 +17,32 @@ var topics = ["dogs","pandas","elephants","mice" ];
 
           // Creates a div to hold the movie
           console.log(response);
-          var imageUrl = response.data.fixed_width_small_still_url;
-          var animatedUrl = response.data.image_original_url;
+          for( a = 0; a < response.data.length; a++){
+            var imageUrl = response.data[a].original_still;
+           console.log(imageUrl);
+           var animatedUrl = response.data[a].url;
             
           
-          var rated = $(response.data.rating);
-          var gifImage = $("<img>");
-          var tag = $("<P>").text(rated);
-          $("#images").prepend(tag);
-          console.log(rated);
+            var rated = $(response.data[a].images.rating);
+            var gifImage = $("<img>");
+            var tag = $("<P>").text(rated);
+            $("#images").prepend(tag);
+            console.log(rated);
 
           
-          gifImage.attr("src", imageUrl);
-          gifImage.attr("alt", "gif image");
-          $("#images").prepend(gifImage);
-          $("#images").on("click", function(){
+            gifImage.attr("src", imageUrl);
+            gifImage.attr("alt", "gif image");
+            $("#images").prepend(gifImage);
+            $("#images").on("click", function(){
              gifImage.attr("src", animatedUrl);
              gifImage.attr("alt", "gif image");
-          });
-        });
+            });
+         
 
-      }
+          }
+          });
+
+        }
 
       // Function for displaying movie data
       function renderButtons() {
