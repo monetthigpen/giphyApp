@@ -14,18 +14,20 @@ var topics = ["dogs","pandas","elephants","mice" ];
           url: queryURL,
           method: "GET"
         }).then(function(response) {
+          $("#images").empty();
 
           // Creates a div to hold the movie
           console.log(response);
-          for( a = 0; a < response.data.length; a++){
-            var imageUrl = response.data[a].original_still;
+          for( a = 0; a < 10; a++){
+            var imageUrl = response.data[a].images.fixed_height_still.url;
            console.log(imageUrl);
-           var animatedUrl = response.data[a].url;
+           var animatedUrl = response.data[a].images.fixed_height.url;
+           console.log(animatedUrl);
             
           
-            var rated = $(response.data[a].images.rating);
+            var rated = $(response.data[a].rating);
             var gifImage = $("<img>");
-            var tag = $("<P>").text(rated);
+            var tag = $("<P>").text("rating:" + rated);
             $("#images").prepend(tag);
             console.log(rated);
 
