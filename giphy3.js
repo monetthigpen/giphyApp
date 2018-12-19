@@ -7,7 +7,7 @@ var topics = ["dogs","pandas","elephants","mice" ];
 
         var topic = $(this).attr("data-name");
 
-        var queryURL = "https:api.giphy.com/v1/gifs/search?q=" + searchTerm + "&api_key=1n42QHILWND8j2gCdeZzeuDYfgbUCAJQ&limit=10";
+        var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + searchTerm + "&api_key=1n42QHILWND8j2gCdeZzeuDYfgbUCAJQ&limit=10";
         // console.log(queryURL);
         // console.log(topics);
         // console.log(topic);
