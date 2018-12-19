@@ -1,10 +1,13 @@
 var topics = ["dogs","pandas","elephants","mice" ];
 
-      // displayMovieInfo function re-renders the HTML to display the appropriate content
-    function displayGif() {
+      // displayMovieInfo function re-renders the HTML to display the appropriate content. Search term is used to query the API we will get this from the button's data-name attribute 
+    function displayGif(searchTerm) {
+
+      // This is refering to the function and not the button
 
         var topic = $(this).attr("data-name");
-        var queryURL = "https:api.giphy.com/v1/gifs/search?q=" + topics + "&api_key=1n42QHILWND8j2gCdeZzeuDYfgbUCAJQ&limit=10";
+
+        var queryURL = "https:api.giphy.com/v1/gifs/search?q=" + searchTerm + "&api_key=1n42QHILWND8j2gCdeZzeuDYfgbUCAJQ&limit=10";
         // console.log(queryURL);
         // console.log(topics);
         // console.log(topic);
@@ -20,25 +23,51 @@ var topics = ["dogs","pandas","elephants","mice" ];
           console.log(response);
           for( a = 0; a < 10; a++){
             var imageUrl = response.data[a].images.fixed_height_still.url;
-           console.log(imageUrl);
-           var animatedUrl = response.data[a].images.fixed_height.url;
-           console.log(animatedUrl);
-            
-          
-            var rated = $(response.data[a].rating);
-            var gifImage = $("<img>");
-            var tag = $("<P>").text("rating:" + rated);
-            $("#images").prepend(tag);
-            console.log(rated);
+          //  console.log(imageUrl);
 
-          
-            gifImage.attr("src", imageUrl);
+           // This method won't work because you will keep reasigning the value each time it enters the for loop, you should save the animated Url in the data attribute of the images 
+           var animatedUrl = response.data[a].images.fixed_height.url;
+          //  console.log(animatedUrl);
+            
+             // This doesnt work, the $() was unnecessary 
+            // var rated = $(response.data[a].rating);
+
+             //This is how to access the rating.
+           var  rated = response.data[a].rating
+
+
+           
+            /* this could be written as: 
+             var gifImage = $("<img>");
+             gifImage.attr("src", imageUrl);
             gifImage.attr("alt", "gif image");
-            $("#images").prepend(gifImage);
-            $("#images").on("click", function(){
              gifImage.attr("src", animatedUrl);
              gifImage.attr("alt", "gif image");
-            });
+
+
+
+
+             */
+            // In the line below im creating a image with the data attribute animate, I'm storing the variable animatedUrl as the value, the src of the image contains the still version of the gif. I also gave the images a class so you can reference it when you add your click event
+            
+            var gifImage = `<img class="gif imgg" data-animate="${animatedUrl}" src=${imageUrl} alt="gif image">`
+            var tag = $("<P>").text("rating:" + rated);
+            $("#images").prepend(tag);
+            // console.log(rated);
+
+           
+            $("#images").prepend(gifImage);
+            // You need to add a click event on the images not the #images div
+            // $("#images").on("click", function(){
+            
+            // });
+              // Here we add an event listener on the document until  elements with the class .gif appear on the page.
+            $(document).on('click','.gif',function(){
+              // Pull off the data attribute animate from each image that the user clicks.
+              var animate = $(this).attr('data-animate')
+              // Change the image from being still to animate
+              $(this).attr('src',animate)
+            })
          
 
           }
@@ -57,9 +86,9 @@ var topics = ["dogs","pandas","elephants","mice" ];
 
           // Then dynamicaly generates buttons for each movie in the array
           // This code $("<button>") is all jQuery needs to create the beginning and end tag. (<button></button>)
-          var c = $("<button>");
+          var c = $("<button >");
           // Adds a class of movie to our button
-          c.addClass("topics");
+          c.addClass("topics btn btn-info but");
           // Added a data-attribute
           c.attr("data-name", topics[i]);
           // Provided the initial button text
@@ -71,7 +100,7 @@ var topics = ["dogs","pandas","elephants","mice" ];
         }
       }
 
-      // This function handles events where the add movie button is clicked
+
       $("#add-gif").on("click", function(event) {
         event.preventDefault();
         // This line of code will grab the input from the textbox
@@ -85,12 +114,19 @@ var topics = ["dogs","pandas","elephants","mice" ];
         renderButtons();
       });
 
-      // Adding click event listeners to all elements with a class of "movie"
-      $(document).on("click", ".topics", displayGif);
-      displayGif();
+     // Adds click events for the buttons we dynamically created. 
+      $(document).on("click", ".topics", function(){
+        event.preventDefault();
+        // pull the value of the input
+        var topic = $("#gif-input").val().trim();
+        // pulls the data attribute name off the clicked img, we will use this to search the giphy API
+        var searchTerm = $(this).attr('data-name')
+        displayGif(searchTerm)
+      });
+      //  displayGif();
       renderButtons();
 
-      // Calling the renderButtons function to display the intial buttons
+        // Calling the renderButtons function to display the intial buttons
       
    
  

@@ -5,7 +5,7 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     </head>
     <style>
-        img{
+        .imgg{
             width: 200px;
         }
         #float{
@@ -13,8 +13,15 @@
             margin: left; 
             
         }
+        .but{
+            margin: 1px;
+        }
+        .back{
+            background-color: grey;
+            width: 960px;
+        }
     </style>
-    <body>
+    <body class = "back">
         <div class ="container">
             
             <div class = "row">
@@ -28,7 +35,7 @@
                         <form id="gif-form ">
                              <label for="gif-input"></label>
                              <input type="text" id="gif-input"><br> 
-                             <input id="add-gif" type="submit" value="Submit">
+                             <input id="add-gif" type="submit" class="btn btn-secondary" value="Submit">
                         </form>
                                          
     
